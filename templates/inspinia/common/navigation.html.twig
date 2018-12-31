@@ -1,0 +1,28 @@
+{% set current_path = app.request.get('_route') %}
+
+<!-- Navigation-->
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    {#<img alt="image" class="rounded-circle" src="{{ get_avatar(app.user) }}">#}
+                    {#<span class="block m-t-xs font-bold">{{ app.user.email }}</span>#}
+                </div>
+                <div class="logo-element">
+                    SB
+                </div>
+            </li>
+            {#<li {% if current_path == 'app_wallets' %} class="active" {% endif %}>#}
+                {#<a href="{{ path('app_wallets') }}"><i class="fa fa-credit-card"></i> <span class="nav-label">Wallets</span></a>#}
+            {#</li>#}
+            {#<li {% if current_path == 'app_diary' %} class="active" {% endif %}>#}
+                {#<a href="{{ path('app_diary') }}"><i class="fa fa-list"></i> <span class="nav-label">Diary</span></a>#}
+            {#</li>#}
+            {#<li {% if current_path == 'app_cryptocoins_index' or current_path == 'app_cryptocoins_prices_index' %} class="active" {% endif %}>#}
+                {#<a href="{{ path('app_cryptocoins_index') }}"><i class="fa fa-btc"></i> <span class="nav-label">CryptoCoins</span></a>#}
+            {#</li>#}
+        </ul>
+
+    </div>
+</nav>
