@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+    symfony-blog_php:
+        container_name: symfony-blog-php
+        build:
+            context: php7-fpm
+            args:
+                TIMEZONE: ${TIMEZONE}
+        ports:
+            - "9000:9000"
+        links:
+            - "symfony-blog_dbserver"
+        volumes:
+            - ${SYMFONY_APP_PATH}:/home/app
+            - ./logs/symfony:/home/app/app/logs
+    symfony-blog_nginx:
+        container_name: symfony-blog-nginx
+        build: nginx
+        ports:
+            - "40000:80"
+        volumes_from:
+            - "symfony-blog_php"
+        links:
+            - "symfony-blog_php"
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+    symfony-blog_dbserver:
+        container_name: symfony-blog-dbserver
+        build: ./dbserver
+        ports:
+            - "3306:3306"
+        volumes:
+            - db_dir:/var/lib/mysql
+
+volumes:
+    db_dir:
