@@ -5,12 +5,16 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StoryRepository")
  */
 class Story
 {
+    use TimestampableEntity;
+
     public const TYPE_TEXT = 'text';
     public const TYPE_IMAGE = 'image';
     public const TYPE_TEXT_IMAGE = 'text_image';
@@ -28,6 +32,12 @@ class Story
     private $title;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $content;
@@ -43,11 +53,6 @@ class Story
     private $imagePath;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $creationDate;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $likes;
@@ -61,11 +66,6 @@ class Story
      * @ORM\Column(type="integer")
      */
     private $share;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $lastUpdateDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="stories")
@@ -97,6 +97,22 @@ class Story
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug): void
+    {
+        $this->slug = $slug;
     }
 
     public function getContent(): ?string
@@ -135,18 +151,6 @@ class Story
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
-    {
-        return $this->creationDate;
-    }
-
-    public function setCreationDate(\DateTimeInterface $creationDate): self
-    {
-        $this->creationDate = $creationDate;
-
-        return $this;
-    }
-
     public function getLikes(): ?int
     {
         return $this->likes;
@@ -179,18 +183,6 @@ class Story
     public function setShare(int $share): self
     {
         $this->share = $share;
-
-        return $this;
-    }
-
-    public function getLastUpdateDate(): ?\DateTimeInterface
-    {
-        return $this->lastUpdateDate;
-    }
-
-    public function setLastUpdateDate(\DateTimeInterface $lastUpdateDate): self
-    {
-        $this->lastUpdateDate = $lastUpdateDate;
 
         return $this;
     }

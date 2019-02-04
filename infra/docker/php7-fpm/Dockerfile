@@ -3,7 +3,7 @@ FROM ubuntu:17.10
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y vim curl git unzip
 
-RUN apt-get install -y php7.1 php7.1-fpm php7.1-mysql php7.1-xml php7.1-curl php-memcached php-geoip nodejs php7.1-mcrypt
+RUN apt-get install -y php7.1 php7.1-fpm php7.1-mysql php7.1-xml php7.1-curl php-memcached php-geoip nodejs php7.1-mcrypt php7.1-mbstring php7.1-zip
 
 RUN curl --insecure https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 
